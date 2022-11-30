@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ inputs.app_name }}
-        working-directory: ${{ inputs.app_name }}
+        working-directory: "${{ inputs.app_name }}"
       - run: echo ${{ secrets.npmrc }}
       
       - run: echo "privet"
-        working-directory: services/${{ github.workflow }}/client
+        working-directory: ${{ github.workflow }}/client
