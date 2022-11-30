@@ -8,9 +8,9 @@ on:
       npmrc: { required: true }
         
 
-defaults:
-  run:
-    working-directory: services/${{ inputs.app_name }}/client
+# defaults:
+#   run:
+#     working-directory: services/${{ inputs.app_name }}/client
 
 jobs:
   child_build:
@@ -20,5 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ inputs.app_name }}
+        working-directory: services/${{ inputs.app_name }}/client
       - run: echo ${{ secrets.npmrc }}
       - run: echo "privet"
