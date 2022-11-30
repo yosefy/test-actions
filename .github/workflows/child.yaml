@@ -19,6 +19,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+
+      - uses: actions/checkout@v3
+      
       - run: echo ${{ inputs.app_name }}
         working-directory: "${{ inputs.app_name }}"
       - run: echo ${{ secrets.npmrc }}
