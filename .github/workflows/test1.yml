@@ -21,7 +21,7 @@ jobs:
   call-workflow-passing-data:
     uses: yosefy/test-actions/.github/workflows/child.yaml@main
     with:
-      app_name: "IMYA"
+      app_name: "ci"
     secrets:
       npmrc: ${{ secrets.TEST_SECRET }}
 #   build:
