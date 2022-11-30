@@ -13,7 +13,7 @@ on:
 #     working-directory: services/${{ inputs.app_name }}/client
 
 jobs:
-  build:
+  child_build:
     env:
       NODE_VERSION: 18
 
