@@ -18,12 +18,30 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  init:
+    runs-on: ubuntu-latest
+    outputs:
+      app_name: ${{ steps.setvars.outputs.gcloud_project }}
+
+    steps:
+      - name: Set variables
+        id: setvars
+        run: |
+          if [[ "${{github.event_name}}" == "workflow_dispatch" ]]; then
+            echo "::set-output name=app_name::dispatch"
+          fi
+
+          if [[ "${{github.event_name}}" == "push" ]]; then
+            echo "::set-output name=app_name::push"
+          fi
+    
   call-workflow-passing-data:
+    needs: init
     uses: yosefy/test-actions/.github/workflows/child.yaml@main
     with:
-      app_name: "ci"
+      app_name: "${{needs.init.outputs.app_name}}"
     secrets:
-      npmrc: ${{ secrets.TEST_SECRET }}
+      npmrc: ${{ secrets[needs.init.outputs.app_name] }}
   build:
     runs-on: ubuntu-latest
 
