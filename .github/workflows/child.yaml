@@ -8,9 +8,9 @@ on:
       npmrc: { required: true }
         
 
-defaults:
-  run:
-    working-directory: services/${{ inputs.app_name }}/client
+# defaults:
+#   run:
+#     working-directory: services/${{ inputs.app_name }}/client
 
 jobs:
   build:
