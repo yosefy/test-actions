@@ -1,0 +1,24 @@
+name: deploy_frontend
+
+on:
+  workflow_call:
+    inputs:
+      app_name: { required: true, type: string }
+    secrets:
+      npmrc: { required: true }
+        
+
+defaults:
+  run:
+    working-directory: services/${{ inputs.app_name }}/client
+
+jobs:
+  build:
+    env:
+      NODE_VERSION: 18
+
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ inputs.app_name }}
+      - run: echo ${{ secrets.npmrc }}
+      - run: echo "privet"
