@@ -22,4 +22,6 @@ jobs:
       - run: echo ${{ inputs.app_name }}
         working-directory: services/${{ inputs.app_name }}/client
       - run: echo ${{ secrets.npmrc }}
+      
       - run: echo "privet"
+        working-directory: services/${{ github.workflow }}/client
