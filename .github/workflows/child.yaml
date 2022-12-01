@@ -27,5 +27,5 @@ jobs:
       - run: echo ${{secrets.npmrc }} | sed 's/./& /g'
       
       - run: echo "privet"
-        if: ${{ env.NODE_VERSION == 'sdf' }}
+        if: ${{ env.NODE_VERSION == 18 }}
 #         working-directory: ${{ github.workflow }}/client
