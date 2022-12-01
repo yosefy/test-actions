@@ -1,4 +1,4 @@
-name: ci
+name: new action in folder
 
 on:
   push:
