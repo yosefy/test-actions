@@ -71,8 +71,9 @@ jobs:
       # - name: Display read-yaml output2
       #   run: echo "${{ fromJSON(github.event.inputs) }}"
       
-      - run: echo "${{ toJSON(inputs) }}"
-      - run: echo "${{ inputs.first }}"
+      - name: run test echo
+        run: echo "${{ toJSON(inputs) }}"
+      - run: echo "${{ inputs }}"
 
       - run: jq -r 'to_entries[] | select(.value == true) | .key' <<< ${{ inputs }}
 #       - name: Set tocat
