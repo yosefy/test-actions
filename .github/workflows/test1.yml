@@ -68,8 +68,8 @@ jobs:
 
       - name: Display read-yaml output1
         run: echo "${{ toJson(github.event.inputs) }}"
-      - name: Display read-yaml output2
-        run: echo "${{ fromJSON(github.event.inputs) }}"
+      # - name: Display read-yaml output2
+      #   run: echo "${{ fromJSON(github.event.inputs) }}"
       
       - run: jq -r 'to_entries[] | select(.value == true) | .key' <<< ${{ toJSON(inputs) }}
 #       - name: Set tocat
