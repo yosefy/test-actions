@@ -22,6 +22,12 @@ jobs:
 
       - uses: actions/checkout@v3
       
+      - name: Set App Name
+        run: |
+          echo "APP_NAME=${{ github.workflow }} | cut -d'_' -f 2" >> $GITHUB_ENV
+      - name: echo aaa
+        run: echo ${{ env.APP_NAME }}
+      
       - name: Load environment from YAML
         uses: doughepi/yaml-env-action@main
         with:
