@@ -28,7 +28,7 @@ jobs:
           files: test.yaml
 
       - name: Display read-yaml output
-        run: echo "${{ env.A.BB }}"
+        run: echo "${{ env.A }}"
 
       
 #       - run: echo ${{ inputs.app_name }}
