@@ -58,7 +58,7 @@ jobs:
       - name: Load environment from YAML
         uses: doughepi/yaml-env-action@main
         with:
-          files: "${{ github.workspace }}/test/test.yaml"
+          files: "${{ github.workspace }}/test2/test.yaml"
 
       - name: Display read-yaml output
         run: echo "${{ env.A }}"
