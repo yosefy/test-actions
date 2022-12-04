@@ -49,5 +49,5 @@ jobs:
 #         run: echo "${{ needs.changes.outputs.packages }}"
       - name: ls
         run: ls -lah
-        working-directory: "src/${{ needs.changes.outputs.packages }}"
+        working-directory: "src/${{ matrix.package }}"
 
