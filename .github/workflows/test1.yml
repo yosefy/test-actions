@@ -59,6 +59,7 @@ jobs:
 
 #       - name: Display read-yaml output
 #         run: echo "${{ env.A }}"
+      - uses: actions/checkout@v3
       - run: ls ../
 #       - name: Set tocat
 #         run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
