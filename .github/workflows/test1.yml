@@ -67,7 +67,7 @@ jobs:
       #     files: "${{ github.workspace }}/test2/test.yaml"
 
       - name: Display read-yaml output1
-        run: echo "${{ toJson(github.event.inputs) }}"
+        run: echo "${{ toJson(inputs) }}"
       # - name: Display read-yaml output2
       #   run: echo "${{ fromJSON(github.event.inputs) }}"
       
