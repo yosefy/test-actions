@@ -48,4 +48,6 @@ jobs:
 #       - name: Run a multi-line script
 #         run: echo "${{ needs.changes.outputs.packages }}"
       - name: ls
-        run: echo "${{ needs.changes.outputs.packages }}"
+        run: ls -lah
+        working-directory: "src/${{ needs.changes.outputs.packages }}"
+
