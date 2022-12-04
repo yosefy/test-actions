@@ -5,8 +5,8 @@ name: my_ci_test_
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - "ci/**"
+#     paths:
+#       - "ci/**"
   workflow_dispatch:
     inputs:
       app_name:
