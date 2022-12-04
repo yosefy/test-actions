@@ -31,8 +31,8 @@ jobs:
 
       - name: Display read-yaml output
         run: echo "${{ steps.yaml-data.outputs.data }}"
-      - name: Display read-yaml output part 1
-        run: echo "${{ steps.yaml-data.outputs.data["a"] }}"
+#       - name: Display read-yaml output part 1
+#         run: echo "${{ steps.yaml-data.outputs.data["a"] }}"
       - name: Display read-yaml output part 2
         run: echo "${{ steps.yaml-data.outputs.data.a }}"
       
