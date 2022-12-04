@@ -21,9 +21,9 @@ on:
         options:
         - aaa
         - aaa_bbb_ccc
-defaults:
-  run:
-    working-directory: test
+# defaults:
+#   run:
+#     working-directory: test
     
 
 jobs:
