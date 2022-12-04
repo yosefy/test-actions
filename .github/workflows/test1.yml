@@ -71,7 +71,8 @@ jobs:
       # - name: Display read-yaml output2
       #   run: echo "${{ fromJSON(github.event.inputs) }}"
       
-      - run: jq -r 'to_entries[] | select(.value == true) | .key' <<< ${{ toJSON(inputs) }}
+      - run: echo "${{ toJSON(inputs) }}" | cut -c2-
+      - run: jq -r 'to_entries[] | select(.value == true) | .key' <<< $(echo "${{ toJSON(inputs) }}" | cut -c2-)
 #       - name: Set tocat
 #         run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
 #       - name: Set App Name
