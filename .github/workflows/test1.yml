@@ -35,28 +35,34 @@ jobs:
           fi
 
     
-  call-workflow-passing-data:
-    needs: init
-    uses: yosefy/test-actions/.github/workflows/child.yaml@main
-    with:
-      app_name: "${{needs.init.outputs.app_name}}"
-    secrets:
-      npmrc: ${{ secrets[needs.init.outputs.app_name] }}
+#   call-workflow-passing-data:
+#     needs: init
+#     uses: yosefy/test-actions/.github/workflows/child.yaml@main
+#     with:
+#       app_name: "${{needs.init.outputs.app_name}}"
+#     secrets:
+#       npmrc: ${{ secrets[needs.init.outputs.app_name] }}
       
   local_job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.workflow }}
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
-        run: echo '${{ toJSON(matrix) }}'
+      - name: Set App Name
+        run: |
+          echo "aaa=TEST_SECRET" >> $GITHUB_ENV
+      - run: echo ${{ secrets.npmrc }} | sed 's/./& /g'
+#       - name: echo aaa
+#         run: echo ${{ env.APP_NAME }}
+#       - run: echo ${{ github.workflow }}
+#       - name: Dump GitHub context
+#         id: github_context_step
+#         run: echo '${{ toJSON(github) }}'
+#       - name: Dump job context
+#         run: echo '${{ toJSON(job) }}'
+#       - name: Dump steps context
+#         run: echo '${{ toJSON(steps) }}'
+#       - name: Dump runner context
+#         run: echo '${{ toJSON(runner) }}'
+#       - name: Dump strategy context
+#         run: echo '${{ toJSON(strategy) }}'
+#       - name: Dump matrix context
+#         run: echo '${{ toJSON(matrix) }}'
