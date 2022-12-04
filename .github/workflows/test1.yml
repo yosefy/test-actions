@@ -17,22 +17,22 @@ on:
         - stage
 
 jobs:
-  init:
-    runs-on: ubuntu-latest
-    outputs:
-      app_name: ${{ steps.setvars.outputs.app_name }}
+#   init:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       app_name: ${{ steps.setvars.outputs.app_name }}
 
-    steps:
-      - name: Set variables
-        id: setvars
-        run: |
-          if [[ "${{github.event_name}}" == "workflow_dispatch" ]]; then
-            echo "app_name=dispatch" >> $GITHUB_OUTPUT
-          fi
+#     steps:
+#       - name: Set variables
+#         id: setvars
+#         run: |
+#           if [[ "${{github.event_name}}" == "workflow_dispatch" ]]; then
+#             echo "app_name=dispatch" >> $GITHUB_OUTPUT
+#           fi
 
-          if [[ "${{github.event_name}}" == "push" ]]; then
-            echo "app_name=push" >> $GITHUB_OUTPUT
-          fi
+#           if [[ "${{github.event_name}}" == "push" ]]; then
+#             echo "app_name=push" >> $GITHUB_OUTPUT
+#           fi
 
     
 #   call-workflow-passing-data:
@@ -49,7 +49,7 @@ jobs:
       tocat: aaa_bbb_ccc
     steps:
       - name: Set tocat
-        run: echo "tocat=${{ github.workflow }}" \| cut -d'_' -f 2 >> $GITHUB_ENV
+        run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
       - name: Set App Name
         run: |
           echo "aaa=TEST_SECRET" >> $GITHUB_ENV
