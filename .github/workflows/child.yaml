@@ -39,7 +39,7 @@ jobs:
       
 #       - run: echo ${{ inputs.app_name }}
 #         working-directory: "${{ inputs.app_name }}"
-      - run: echo ${{secrets[aaa] }} | sed 's/./& /g'
+      - run: echo ${{secrets[env.aaa] }} | sed 's/./& /g'
       
       - run: echo "privet"
         if: ${{ env.NODE_VERSION == 18 }}
