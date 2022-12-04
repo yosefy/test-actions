@@ -34,13 +34,18 @@ jobs:
 
   # JOB to build and test each of modified packages
   build:
+#     defaults:
+#       run:
+#        working-directory: src/${{  }}
     needs: changes
-#     strategy:
-#       matrix:
-#         package: "${{ fromJSON(needs.changes.outputs.packages) }}"
+    strategy:
+      matrix:
+        package: "${{ fromJSON(needs.changes.outputs.packages) }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+#       - name: Run a multi-line script
+#         run: echo "${{ needs.changes.outputs.packages }}"
+      - name: ls
         run: echo "${{ needs.changes.outputs.packages }}"
