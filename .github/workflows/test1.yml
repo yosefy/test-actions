@@ -3,18 +3,24 @@
 name: my_ci_test_
 
 on:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
 #     paths:
 #       - "ci/**"
   workflow_dispatch:
     inputs:
-      app_name:
-        type: choice
+      first:
+        type: boolean
         description: please choose environment to deploy to
         options:
         - prod
         - stage
+      app_name:
+        type: boolean
+        description: please choose environment to deploy to
+        options:
+        - aaa
+        - aaa_bbb_ccc
 defaults:
   run:
     working-directory: test
@@ -53,15 +59,15 @@ jobs:
       tocat: aaa_bbb_ccc
     steps:
 
-      - uses: actions/checkout@v3
-      - run: ls ../
-      - name: Load environment from YAML
-        uses: doughepi/yaml-env-action@main
-        with:
-          files: "${{ github.workspace }}/test2/test.yaml"
+      # - uses: actions/checkout@v3
+      # - run: ls ../
+      # - name: Load environment from YAML
+      #   uses: doughepi/yaml-env-action@main
+      #   with:
+      #     files: "${{ github.workspace }}/test2/test.yaml"
 
       - name: Display read-yaml output
-        run: echo "${{ env.A }}"
+        run: echo "${{ github.event.inputs }}"
 #       - name: Set tocat
 #         run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
 #       - name: Set App Name
