@@ -24,7 +24,7 @@ jobs:
       
       - name: Set App Name
         run: |
-          echo "aaa=npmrc" >> $GITHUB_ENV
+          echo "aaa=TEST_SECRET" >> $GITHUB_ENV
       - name: echo aaa
         run: echo ${{ env.APP_NAME }}
       
