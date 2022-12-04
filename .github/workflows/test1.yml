@@ -15,6 +15,10 @@ on:
         options:
         - prod
         - stage
+defaults:
+  run:
+    working-directory: test
+    
 
 jobs:
 #   init:
@@ -42,19 +46,26 @@ jobs:
 #       app_name: "${{needs.init.outputs.app_name}}"
 #     secrets:
 #       npmrc: ${{ secrets[needs.init.outputs.app_name] }}
-      
+
   local_job:
     runs-on: ubuntu-latest
     env:
       tocat: aaa_bbb_ccc
     steps:
-      - name: Set tocat
-        run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
-      - name: Set App Name
-        run: |
-          echo "aaa=TEST_SECRET" >> $GITHUB_ENV
-      - run: echo ${{ secrets[env.aaa] }} | sed 's/./& /g'
-      - run: echo "${{ env.tocat }}"
+      - name: Load environment from YAML
+        uses: doughepi/yaml-env-action@main
+        with:
+          files: ../test.yaml
+
+      - name: Display read-yaml output
+        run: echo "${{ env.A }}"
+#       - name: Set tocat
+#         run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
+#       - name: Set App Name
+#         run: |
+#           echo "aaa=TEST_SECRET" >> $GITHUB_ENV
+#       - run: echo ${{ secrets[env.aaa] }} | sed 's/./& /g'
+#       - run: echo "${{ env.tocat }}"
 #       - name: echo aaa
 #         run: echo ${{ env.APP_NAME }}
 #       - run: echo ${{ github.workflow }}
