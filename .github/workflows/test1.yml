@@ -75,7 +75,7 @@ jobs:
         run: echo "${{ toJSON(inputs) }}"
       - run: echo "${{ inputs }}"
 
-      - run: jq -r 'to_entries[] | select(.value == true) | .key' <<< ${{ inputs }}
+      - run: jq -n -r 'to_entries[] | select(.value == true) | .key' <<< ${{ inputs }}
 #       - name: Set tocat
 #         run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
 #       - name: Set App Name
