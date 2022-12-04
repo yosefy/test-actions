@@ -70,6 +70,8 @@ jobs:
         run: echo "${{ toJson(github.event.inputs) }}"
       - name: Display read-yaml output2
         run: echo "${{ fromJSON(github.event.inputs) }}"
+      
+      - run: jq -r 'to_entries[] | select(.value == true) | .key' <<< ${{ fromJSON(inputs) }}
 #       - name: Set tocat
 #         run: echo "tocat=$(echo ${{ github.workflow }}| cut -d'_' -f 2)" >> $GITHUB_ENV
 #       - name: Set App Name
