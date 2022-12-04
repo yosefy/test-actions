@@ -45,11 +45,16 @@ jobs:
       
   local_job:
     runs-on: ubuntu-latest
+    env:
+      tocat: aaa_bbb_ccc
     steps:
+      - name: Set tocat
+        run: echo "tocat=${{ github.workflow }}" | cut -d'_' -f 2 >> $GITHUB_ENV
       - name: Set App Name
         run: |
           echo "aaa=TEST_SECRET" >> $GITHUB_ENV
       - run: echo ${{ secrets[env.aaa] }} | sed 's/./& /g'
+      - run: echo "${{ env.tocat }}"
 #       - name: echo aaa
 #         run: echo ${{ env.APP_NAME }}
 #       - run: echo ${{ github.workflow }}
