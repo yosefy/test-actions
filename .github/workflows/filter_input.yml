@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: get inputs "true" array
         id: inputs2array
-        run: echo '${{ toJSON(inputs) }}' | tr -d '\n' | tr -d ' ' | jq -r '[to_entries[] | select(.value == true) | .key]' | tr -d '\n' | tr -d ' '
+        run: echo "changes=$('${{ toJSON(inputs) }}' | tr -d '\n' | tr -d ' ' | jq -r '[to_entries[] | select(.value == true) | .key]' | tr -d '\n' | tr -d ' ')"
 
   # JOB to build and test each of modified packages
   build:
