@@ -12,15 +12,18 @@ on:
       first:
         type: boolean
         description: please choose environment to deploy to
-        options:
-        - prod
-        - stage
-      # app_name:
-      #   type: boolean
-      #   description: please choose environment to deploy to
-      #   options:
-      #   - aaa
-      #   - aaa_bbb_ccc
+        # options:
+        # - prod
+        # - stage
+      second:
+        type: boolean
+        description: please choose environment to deploy to
+      third:
+        type: boolean
+        description: please choose environment to deploy to
+        # options:
+        # - aaa
+        # - aaa_bbb_ccc
 # defaults:
 #   run:
 #     working-directory: test
