@@ -31,9 +31,9 @@ jobs:
 
   # JOB to build and test each of modified packages
   build:
-    defaults:
-      run:
-       working-directory: src/${{ matrix.package }}
+    # defaults:
+    #   run:
+    #    working-directory: src/${{ matrix.package }}
     needs: changes
     # strategy:
     #   matrix:
