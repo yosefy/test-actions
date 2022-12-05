@@ -26,7 +26,8 @@ jobs:
     steps:
       - name: get inputs "true" array
         id: inputs2array
-        run: echo '${{ toJSON(inputs) }}' | tr -d '\n' | tr -d ' ' | jq -r '[to_entries[] | select(.value == true) | .key]' | tr -d '\n' | tr -d ' ' 
+        run: echo '${{ toJSON(inputs) }}' | tr -d '\n' | tr -d ' ' | jq -r '[to_entries[] | select(.value == true) | .key]' | tr -d '\n' | tr -d ' '
+      - name:
 
   # JOB to build and test each of modified packages
   build:
@@ -34,16 +35,16 @@ jobs:
       run:
        working-directory: src/${{ matrix.package }}
     needs: changes
-    strategy:
-      matrix:
-        package: "${{ fromJson(needs.changes.outputs.packages) }}"
+    # strategy:
+    #   matrix:
+    #     package: "${{ fromJson(needs.changes.outputs.packages) }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       # Runs a set of commands using the runners shell
 #       - name: Run a multi-line script
 #         run: echo "${{ needs.changes.outputs.packages }}"
-      - name: ls
-        run: ls -lah
+      - name: echo input
+        run: echo '"${{ needs.changes.outputs.packages }}"'
 #        working-directory: "src/${{ matrix.package }}"
 
