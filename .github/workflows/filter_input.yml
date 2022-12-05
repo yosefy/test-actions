@@ -34,9 +34,9 @@ jobs:
     #   run:
     #    working-directory: src/${{ matrix.package }}
     needs: changes
-    # strategy:
-    #   matrix:
-    #     package: "${{ fromJson(needs.changes.outputs.packages) }}"
+    strategy:
+      matrix:
+        package: "${{ fromJson(needs.changes.outputs.packages) }}"
     runs-on: ubuntu-latest
     steps:
       # - uses: actions/checkout@v3
@@ -44,6 +44,6 @@ jobs:
 #       - name: Run a multi-line script
 #         run: echo "${{ needs.changes.outputs.packages }}"
       - name: echo input
-        run: echo "${{ needs.changes.outputs.packages }}"
+        run: echo "${{ matrix.package }}"
 #        working-directory: "src/${{ matrix.package }}"
 
