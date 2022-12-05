@@ -39,11 +39,11 @@ jobs:
     #     package: "${{ fromJson(needs.changes.outputs.packages) }}"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
       # Runs a set of commands using the runners shell
 #       - name: Run a multi-line script
 #         run: echo "${{ needs.changes.outputs.packages }}"
       - name: echo input
-        run: echo '"${{ needs.changes.outputs.packages }}"'
+        run: echo "${{ needs.changes.outputs.packages }}"
 #        working-directory: "src/${{ matrix.package }}"
 
