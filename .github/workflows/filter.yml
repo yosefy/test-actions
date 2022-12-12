@@ -16,6 +16,7 @@ on:
 
 env:
   test: true
+  aaa: "abcdefg"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,6 +30,10 @@ jobs:
     #   packages: ${{ steps.filter.outputs.changes }}
     steps:
     - run: |
+        sl="${${{ inputs.aaa }}: -1}"
+        region="${{{ inputs.aaa }}/%??/}"
+        echo $sl
+        echo $region
         echo 'gcloud compute instances create pse-dev-aaaaaaa \
         --custom-cpu=32 \
         --custom-memory=128 \
