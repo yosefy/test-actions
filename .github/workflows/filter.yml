@@ -5,8 +5,8 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -15,44 +15,82 @@ on:
 
 
 env:
-  A: "aaa"
-  B: "${{ env.A }}-c"
+  test: True
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
   changes:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read
-    outputs:
-      # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter.outputs.changes }}
+    # outputs:
+    #   # Expose matched filters as job 'packages' output variable
+    #   packages: ${{ steps.filter.outputs.changes }}
     steps:
-    - uses: actions/checkout@v3
+    - run: |
+        gcloud compute instances create pse-dev-aaaaaaa \
+        --custom-cpu=32 \
+        --custom-memory=128 \
+        --custom-vm-type=n1 \
+        --min-cpu-platform="Intel Skylake" \
+        --subnet=projects/dev-host-project-262814/regions/us-central1/subnetworks/dev-search-uscent1-subnet106 --no-address \
+        --metadata=env_config=${{env.ENV_CONFIG}},\
+        final_version=aaaaaa,\
+        startup-script="\
+        /pse-app/startup-script.sh >> /pse-logs/pse-startup-script.log;  \
+        ${{ env.test || '/pse-app/pse-setup.sh >> /pse-logs/pse-startup-script.log; \' }}
+        cd /pse-app && /bin/bash /pse-app/runme.sh",\
+        shutdown-script="/bin/bash /pse-app/shutdown-script.sh >> /pse-logs/pse-shutdown-script.log" \
+        --maintenance-policy=MIGRATE --service-account=25094355498-compute@developer.gserviceaccount.com \
+        --scopes=https://www.googleapis.com/auth/cloud-platform \
+        --project=dev-search-262910 \
+        --zone=us-central1-c \
+        --tags=pse \
+        --image-family=pipl-pse  \
+        --image-project=dev-search-262910 \
+        --boot-disk-size=200GB \
+        --boot-disk-type=pd-standard \
+        --boot-disk-device-name=pse-dev-template-1 \
+        --no-shielded-secure-boot \
+        --shielded-vtpm \
+        --shielded-integrity-monitoring \
+        --labels=team=search,sleep=yes,sl=c,version=$version,app=pse,owner=daniel_salama,role=pse,product=search,environment=development,project=dev-search-262910 \
+        --reservation-affinity=any
+
+    # - uses: actions/checkout@v3
     # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          package1: src/package1/**
-          package2: src/package2/**
+    # - uses: dorny/paths-filter@v2
+    #   id: filter
+    #   with:
+    #     filters: |
+    #       package1: src/package1/**
+    #       package2: src/package2/**
 
   # JOB to build and test each of modified packages
-  build:
-    defaults:
-      run:
-       working-directory: src/${{ matrix.package }}
-    needs: changes
-    strategy:
-      matrix:
-        package: "${{ fromJSON(needs.changes.outputs.packages) }}"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      # Runs a set of commands using the runners shell
-#       - name: Run a multi-line script
-#         run: echo "${{ needs.changes.outputs.packages }}"
-      - name: ls
-        run: ls -lah
-#        working-directory: "src/${{ matrix.package }}"
+#   build:
+#     defaults:
+#       run:
+#        working-directory: src/${{ matrix.package }}
+#     needs: changes
+#     strategy:
+#       matrix:
+#         package: "${{ fromJSON(needs.changes.outputs.packages) }}"
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       # Runs a set of commands using the runners shell
+# #       - name: Run a multi-line script
+# #         run: echo "${{ needs.changes.outputs.packages }}"
+#       - name: ls
+#         run: "echo "
+# #        working-directory: "src/${{ matrix.package }}"
 
+#       - name: Cache Maven
+#         id: cache-primes
+#         uses: actions/cache@v3
+#         with:
+#           path: |
+#             ~/.m2
+#             ~/repository
+          # key: ${{ github.job }}-${{ hashFiles('**/pom.xml') }}
