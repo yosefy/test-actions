@@ -30,8 +30,9 @@ jobs:
     #   packages: ${{ steps.filter.outputs.changes }}
     steps:
     - run: |
-        sl="${${{ inputs.aaa }}: -1}"
-        region="${{{ inputs.aaa }}/%??/}"
+        zone=${{ inputs.aaa }}
+        sl="${zone: -1}"
+        region="${zone/%??/}"
         echo $sl
         echo $region
         echo 'gcloud compute instances create pse-dev-aaaaaaa \
