@@ -30,7 +30,7 @@ jobs:
     #   packages: ${{ steps.filter.outputs.changes }}
     steps:
     - run: |
-        zone=${{ inputs.aaa }}
+        zone=${{ env.aaa }}
         sl="${zone: -1}"
         region="${zone/%??/}"
         echo $sl
