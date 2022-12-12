@@ -15,7 +15,7 @@ on:
 
 
 env:
-  test: False
+  test: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -39,7 +39,7 @@ jobs:
         final_version=aaaaaa,\
         startup-script="\
         /pse-app/startup-script.sh >> /pse-logs/pse-startup-script.log;  \
-        ${{ env.test && '/pse-app/pse-setup.sh >> /pse-logs/pse-startup-script.log; \' }}
+        ${{ env.test || '/pse-app/pse-setup.sh >> /pse-logs/pse-startup-script.log; \' }}
         cd /pse-app && /bin/bash /pse-app/runme.sh",\
         shutdown-script="/bin/bash /pse-app/shutdown-script.sh >> /pse-logs/pse-shutdown-script.log" \
         --maintenance-policy=MIGRATE --service-account=25094355498-compute@developer.gserviceaccount.com \
