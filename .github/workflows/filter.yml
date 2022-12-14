@@ -30,39 +30,8 @@ jobs:
     #   packages: ${{ steps.filter.outputs.changes }}
     steps:
     - run: |
-        zone=${{ env.aaa }}
-        sl="${zone: -1}"
-        region="${zone/%??/}"
-        echo $sl
-        echo $region
-        echo 'gcloud compute instances create pse-dev-aaaaaaa \
-        --custom-cpu=32 \
-        --custom-memory=128 \
-        --custom-vm-type=n1 \
-        --min-cpu-platform="Intel Skylake" \
-        --subnet=projects/dev-host-project-262814/regions/us-central1/subnetworks/dev-search-uscent1-subnet106 --no-address \
-        --metadata=env_config=${{env.ENV_CONFIG}},\
-        final_version=aaaaaa,\
-        startup-script="\
-        /pse-app/startup-script.sh >> /pse-logs/pse-startup-script.log;  \
-        ${{ env.test || '/pse-app/pse-setup.sh >> /pse-logs/pse-startup-script.log; \' }}
-        cd /pse-app && /bin/bash /pse-app/runme.sh",\
-        shutdown-script="/bin/bash /pse-app/shutdown-script.sh >> /pse-logs/pse-shutdown-script.log" \
-        --maintenance-policy=MIGRATE --service-account=25094355498-compute@developer.gserviceaccount.com \
-        --scopes=https://www.googleapis.com/auth/cloud-platform \
-        --project=dev-search-262910 \
-        --zone=us-central1-c \
-        --tags=pse \
-        --image-family=pipl-pse  \
-        --image-project=dev-search-262910 \
-        --boot-disk-size=200GB \
-        --boot-disk-type=pd-standard \
-        --boot-disk-device-name=pse-dev-template-1 \
-        --no-shielded-secure-boot \
-        --shielded-vtpm \
-        --shielded-integrity-monitoring \
-        --labels=team=search,sleep=yes,sl=c,version=$version,app=pse,owner=daniel_salama,role=pse,product=search,environment=development,project=dev-search-262910 \
-        --reservation-affinity=any'
+        yq --version
+
 
     # - uses: actions/checkout@v3
     # For pull requests it's not necessary to checkout the code
